@@ -80,7 +80,7 @@ move :: Command -> Angle -> TurtleState -> TurtleState
 move 'L' angle (pos@(x, y), angle') = (pos, angle' + angle)
 move 'R' angle (pos@(x, y), angle') = (pos, angle' - angle)
 move 'F' angle (pos@(x, y), angle')
-  =  (x + (cos (angle' * pi / 180), y + sin (angle' * pi / 180)), angle')
+  =  (((x + cos (angle' * pi / 180)), (y + sin (angle' * pi / 180))), angle')
 move  _ _ _ = error "Move Invalid"
 
 
