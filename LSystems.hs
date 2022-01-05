@@ -89,8 +89,12 @@ move  _ _ _ = error "Move Invalid"
 -- commands in `cs' and assuming the given angle of rotation.
 --
 trace1 :: Commands -> Angle -> Colour -> [ColouredLine]
-trace1
-  = undefined
+trace1 axiom angle colour = undefined
+  -- = trace1' axiom angle colour
+  -- where
+  --   trace1' (command : commands) angle lines
+
+
 
 trace2 :: Commands -> Angle -> Colour -> [ColouredLine]
 trace2
