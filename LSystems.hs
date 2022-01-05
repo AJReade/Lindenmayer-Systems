@@ -64,7 +64,7 @@ lookupChar _ [] = ""
 -- Expand command string s once using rule table r
 expandOne :: String -> Rules -> String
 expandOne axiom@(x : xs) rules
-  = expandOne xs rules ++ lookupChar x rules 
+  = lookupChar x rules ++ expandOne xs rules
 expandOne [] _ = ""
 
 
