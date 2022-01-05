@@ -58,7 +58,7 @@ lookupChar :: Char -> Rules -> String
 -- Pre: the character has a binding in the Rules list
 lookupChar char ((key : value) : rules)
   | char == key = value
-  | otherwise   = lookup char rules
+  | otherwise   = lookupChar char rules
 lookupChar _ [] = ""
 
 -- Expand command string s once using rule table r
