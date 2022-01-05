@@ -77,8 +77,11 @@ expand axiom n rules
 
 -- Move a turtle
 move :: Command -> Angle -> TurtleState -> TurtleState
-move
-  = undefined
+move 'L' angle (pos@(x, y), angle') = (pos, angle' + angle)
+move 'R' angle (pos@(x, y), angle') = (pos, angle' - angle)
+move 'F' angle (pos@(x, y), angle') =  ((cos (angle' * pi / 180), sin (angle' * pi / 180')), angle')
+move  _ _ _ = error "Move Invalid"
+
 
 --
 -- Trace lines drawn by a turtle using the given colour, following the
