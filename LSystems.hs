@@ -70,8 +70,10 @@ expandOne [] _ = ""
 
 -- Expand command string s n times using rule table r
 expand :: String -> Int -> Rules -> String
-expand
-  = undefined
+expand axiom n rules
+  | n > 0     = expand (expandOne axiom rules) (n - 1) rules
+  | otherwise = axiom
+
 
 -- Move a turtle
 move :: Command -> Angle -> TurtleState -> TurtleState
