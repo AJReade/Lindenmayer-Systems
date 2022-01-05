@@ -56,7 +56,7 @@ rules (_angle, _axiom, rules)
 -- Return the binding for the given character in the list of rules
 lookupChar :: Char -> Rules -> String
 -- Pre: the character has a binding in the Rules list
-lookupChar char ((key : value) : rules)
+lookupChar char ((key, value) : rules)
   | char == key = value
   | otherwise   = lookupChar char rules
 lookupChar _ [] = ""
