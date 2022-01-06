@@ -77,9 +77,11 @@ expand axiom n rules
 
 -- Move a turtle
 move :: Command -> Angle -> TurtleState -> TurtleState
-move 'L' angle (pos@(x, y), angle') = (pos, angle' + 90)
+move 'L' angle (pos@(x, y), angle')
+  | (angle' + 90) > 360 = (pos, (angle' + 90) - 360)
+  | otherwise           = (pos, (angle' + 90))
 move 'R' angle (pos@(x, y), angle')
-  | (angle' - angle) < 0 = (pos, 360 - (angle' - 90))
+  | (angle' - 90) < 0 = (pos, 360 - (angle' - 90))
   | otherwise            = (pos, (angle' - angle))
 move 'F' angle (pos@(x, y), angle')
   =  (((x + cos (angle' * pi / 180)), (y + sin (angle' * pi / 180))), angle')
