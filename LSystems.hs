@@ -111,8 +111,8 @@ trace2 commands angle colour
       where
         endState@(endPos, endAngle)  = move command angle state
         (startPos, startAngle)       = state
-    trace1' (command : commands) angle colour state stack@(top : rest)
-      | command == '[' = trace1' commands angle colour state (state : stack)
+    trace1' (command : commands) angle colour state (top : rest)
+      | command == '[' = trace1' commands angle colour state (state : (top : rest))
       | command == ']' = trace1' commands angle colour top rest
     trace1' [] _ _ _ _ = []
 
