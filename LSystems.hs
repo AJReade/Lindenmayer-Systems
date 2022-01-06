@@ -87,9 +87,9 @@ move  _ _ _ = error "Move Invalid"
 --
 -- Trace lines drawn by a turtle using the given colour, following the
 -- commands in `cs' and assuming the given angle of rotation.
---
--- trace1 :: Commands -> Angle -> Colour -> [ColouredLine]
--- trace1 axiom@(command : commands) angle colour = undefined
+
+trace1 :: Commands -> Angle -> Colour -> [ColouredLine]
+trace1 axiom@(command : commands) angle colour = undefined
 --   = trace1' axiom
 --    command angle ((0, 0), 0)
 --   where
