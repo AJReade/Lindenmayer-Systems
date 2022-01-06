@@ -77,12 +77,8 @@ expand axiom n rules
 
 -- Move a turtle
 move :: Command -> Angle -> TurtleState -> TurtleState
-move 'L' angle (pos, angle')
-  | (angle' + 90) == 180 = (pos, 180)
-  | otherwise           = (pos, (angle' + angle ))
-move 'R' angle (pos, angle')
-  | (angle' - 90) == 0 = (pos, 0)
-  | otherwise         = (pos, (angle' - angle))
+move 'L' angle (pos, angle') = (pos, (angle' + angle ))
+move 'R' angle (pos, angle') = (pos, (angle' - angle))
 move 'F' angle ((x, y), angle')
   =  ((x + cos(angle' * pi / 180), y + sin(angle' * pi / 180)), angle')
 move  _ _ _ = error "Move Invalid"
