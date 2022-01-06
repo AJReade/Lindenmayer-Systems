@@ -118,7 +118,7 @@ trace2 commands angle colour
     trace2' (command : commands) angle colour state (top : rest)
       | command == '[' = trace2' commands angle colour state (state : (top : rest))
       | command == ']' = trace2' commands angle colour top rest
-    trace2' [] _ _ _ _ = []
+    trace2' _ _ _ _ _ = []
 
 ----------------------------------------------------------
 -- Some given functions
