@@ -89,7 +89,7 @@ move  _ _ _ = error "Move Invalid"
 -- commands in `cs' and assuming the given angle of rotation.
 
 trace1 :: Commands -> Angle -> Colour -> [ColouredLine]
-trace1 _ _ _ = undefined 
+trace1 _ _ _ = undefined
 -- axiom@(command : commands) angle colour = undefined
 --   = trace1' axiom
 --    command angle ((0, 0), 0)
@@ -106,15 +106,16 @@ trace2 commands angle colour
   = trace1' commands angle colour ((0,0), 0) []
   where
     trace1' (command : commands) angle colour state stack@(top : rest)
-      | command == '[' = trace1' commands angle colour state (state : stack)
-      | command == ']' = trace1' commands angle colour top rest
       | command == 'F' = (startPos, endPos, colour) : trace1' commands angle colour endState stack
       | otherwise      = trace1' commands angle colour endState stack
       where
         endState@(endPos, endAngle)  = move command angle state
         (startPos, startAngle)       = state
-
-
+    trace1' (command : commands) angle colour state stack@(top : rest)
+      | command == '[' = trace1' commands angle colour state (state : stack)
+      | command == ']' = trace1' commands angle colour top rest
+    trace1' [] _ _ _ _ = []
+    
 ----------------------------------------------------------
 -- Some given functions
 
