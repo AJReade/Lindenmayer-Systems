@@ -77,14 +77,14 @@ expand axiom n rules
 
 -- Move a turtle
 move :: Command -> Angle -> TurtleState -> TurtleState
-move 'L' angle (pos@(x, y), angle')
+move 'L' angle (pos, angle')
   | (angle' + 90) > 360 = (pos, (angle' + 90) - 360)
   | otherwise           = (pos, (angle' + 90))
-move 'R' angle (pos@(x, y), angle')
-  | (angle' - 90) < 0 = (pos, 360 - (angle' - 90))
-  | otherwise            = (pos, (angle' - angle))
-move 'F' angle (pos@(x, y), angle')
-  =  (((x + cos (angle' * pi / 180)), (y + sin (angle' * pi / 180))), angle')
+move 'R' angle (pos, angle')
+  | (angle' - 90) < 0 = (pos, 360 + (angle' - 90))
+  | otherwise         = (pos, (angle' - angle))
+move 'F' angle ((x, y), angle')
+  =  ((x + cos(angle' * pi / 180), y + sin(angle' * pi / 180)), angle')
 move  _ _ _ = error "Move Invalid"
 
 
@@ -113,8 +113,8 @@ trace2 commands angle colour
       | command == 'F' = (startPos, endPos, colour) : trace1' commands angle colour endState stack
       | otherwise      = trace1' commands angle colour endState stack
       where
-        endState@(endPos, endAngle)  = move command angle state
-        (startPos, startAngle)       = state
+        endState@(endPos, _endAngle)  = move command angle state
+        (startPos, _startAngle)       = state
     trace1' (command : commands) angle colour state (top : rest)
       | command == '[' = trace1' commands angle colour state (state : (top : rest))
       | command == ']' = trace1' commands angle colour top rest
