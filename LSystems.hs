@@ -82,7 +82,7 @@ move 'L' angle (pos, angle')
   | otherwise           = (pos, (angle' + 90.0))
 move 'R' angle (pos, angle')
   | (angle' - 90) == 0 = (pos, 0)
-  | otherwise         = (pos, (angle' - angle))
+  | otherwise         = (pos, (angle' - 90.0))
 move 'F' angle ((x, y), angle')
   =  ((x + cos(angle' * pi / 180), y + sin(angle' * pi / 180)), angle')
 move  _ _ _ = error "Move Invalid"
