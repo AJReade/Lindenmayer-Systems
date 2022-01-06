@@ -107,7 +107,7 @@ trace1 _ _ _ = undefined
 
 trace2 :: Commands -> Angle -> Colour -> [ColouredLine]
 trace2 commands angle colour
-  = trace1' commands angle colour ((0,0), 0) []
+  = trace1' commands angle colour ((0,0), 90) []
   where
     trace1' (command : commands) angle colour state stack
       | command == 'F' = (startPos, endPos, colour) : trace1' commands angle colour endState stack
