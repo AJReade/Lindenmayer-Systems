@@ -96,10 +96,10 @@ trace1 commands angle colour
     trace1' (command : commands) angle state
       = (start, end, colour) : trace
       where
-        (trace) = trace1' commands angle end
-        (end, _)           = move command angle state
-        (start, _)         = state
-        line               = (start, end, colour)
+        trace       = trace1' commands angle newState
+        newState@(end, _)    = move command angle state
+        (start, _)  = state
+        line        = (start, end, colour)
     trace1' _ _ _ = []
 
 
