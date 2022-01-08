@@ -93,10 +93,10 @@ trace1 commands angle colour
   = fst (trace1' commands angle ((0,0), 90))
   where
     trace1' ( '[' : commands) angle state
-      = (trace ++ trace', commands)
+      = (trace ++ trace', commands'')
       where
         (trace, commands') = trace1' commands angle state
-        (trace', commands) = trace1' commands' angle state
+        (trace', commands'') = trace1' commands' angle state
     trace1' ( ']' : commands) angle state
       = ([], commands)
     trace1' (command : commands) angle state
