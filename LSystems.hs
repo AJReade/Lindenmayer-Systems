@@ -103,7 +103,7 @@ trace1 (command : commands) angle colour
         endState@(endPos, endAngle)  = move command angle state
         (trace, commands') = trace1' commands angle endState
         (startPos, _)      = state
-        line               = (start, endPos, colour)
+        line               = (startPos, endPos, colour)
 
     trace1' _ _ _ = ([], "")
 
