@@ -90,40 +90,45 @@ move  _ _ _ = error "Move Invalid"
 
 trace1 :: Commands -> Angle -> Colour -> [ColouredLine]
 trace1 commands angle colour
-  = fst (trace1' commands angle origin)
+  = fst (trace1' commands origin)
   where
-    trace1' ( '[' : commands) angle state
+    trace1' ( '[' : commands) state
       = (trace ++ trace', commands'')
       where
-        (trace, commands')  = trace1' commands angle state
-        (trace', commands'') = trace1' commands' angle state
-    trace1' (command : commands) angle state
+        (trace, commands')   = trace1' commands state
+        (trace', commands'') = trace1' commands' state
+    trace1' (command : commands) state
       | command == 'F'                   = (line : trace, commands')
       | command == 'L' || command == 'R' = (trace, commands')
       | command == ']'                   = ([], commands)
       where
         endState@(endPos, endAngle)  = move command angle state
-        (trace, commands') = trace1' commands angle endState
-        (startPos, _)       = state
-        line                = (startPos, endPos, colour)
-    trace1' _ _ _ = ([], "")
+        (trace, commands')           = trace1' commands endState
+        (startPos, _)                = state
+        line                         = (startPos, endPos, colour)
+    trace1' _ _
+      = ([], "")
 
 
 
 trace2 :: Commands -> Angle -> Colour -> [ColouredLine]
 trace2 commands angle colour
-  = trace2' commands angle colour origin []
+  = trace2' commands origin []
   where
-    trace2' (command : commands) angle colour state stack
-      | command == 'F' = (startPos, endPos, colour) : trace2' commands angle colour endState stack
-      | command == 'L' || command == 'R' = trace2' commands angle colour endState stack
-      | command == '[' = trace2' commands angle colour state (state : stack)
+    trace2' (command : commands) state stack
+      | command == 'F'
+        = (startPos, endPos, colour) : trace2' commands endState stack
+      | command == 'L' || command == 'R'
+        = trace2' commands endState stack
+      | command == '['
+        = trace2' commands state (state : stack)
       where
         endState@(endPos, _endAngle)  = move command angle state
         (startPos, _startAngle)       = state
-    trace2' (']' : commands) angle colour state (top : rest)
-      = trace2' commands angle colour top rest
-    trace2' _ _ _ _ _ = []
+    trace2' (']' : commands) state (top : rest)
+      = trace2' commands top rest
+    trace2' _ _ _ _ _
+      = []
 
 ----------------------------------------------------------
 -- Some given functions
