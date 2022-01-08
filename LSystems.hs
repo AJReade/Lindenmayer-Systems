@@ -92,10 +92,10 @@ trace1 :: Commands -> Angle -> Colour -> [ColouredLine]
 trace1 (command : commands) angle colour
   = fst (trace1' commands angle ((0,0), 90))
   where
-    trace1' ( '[' : commands) angle state
-      = trace1' commands angle state
-    trace1' ( ']' : commands) angle state
-      = ([], commands)
+    -- trace1' ( '[' : commands) angle state
+    --   = trace1' commands angle state
+    -- trace1' ( ']' : commands) angle state
+    --   = ([], commands)
     trace1' (command : commands) angle state
       | command == 'F'                   = (line : trace, commands')
       | command == 'L' || command == 'R' = (trace, commands')
