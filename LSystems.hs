@@ -89,13 +89,13 @@ move  _ _ _ = error "Move Invalid"
 -- commands in `cs' and assuming the given angle of rotation.
 
 trace1 :: Commands -> Angle -> Colour -> [ColouredLine]
-trace1 (command : commands) angle colour
+trace1 commands angle colour
   = fst (trace1' commands angle ((0,0), 90))
   where
-    -- trace1' ( '[' : commands) angle state
-    --   = trace1' commands angle state
-    -- trace1' ( ']' : commands) angle state
-    --   = ([], commands)
+    trace1' ( '[' : commands) angle state
+      = trace1' commands angle state
+    trace1' ( ']' : commands) angle state
+      = ([], commands)
     trace1' (command : commands) angle state
       | command == 'F'                   = (line : trace, commands')
       | command == 'L' || command == 'R' = (trace, commands')
@@ -104,7 +104,6 @@ trace1 (command : commands) angle colour
         (trace, commands') = trace1' commands angle endState
         (startPos, _)      = state
         line               = (startPos, endPos, colour)
-
     trace1' _ _ _ = ([], "")
 
 
