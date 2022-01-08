@@ -90,7 +90,7 @@ move  _ _ _ = error "Move Invalid"
 
 trace1 :: Commands -> Angle -> Colour -> String
 trace1 (command : commands) angle colour
-  = lst (trace1' commands angle ((0,0), 90))
+  = snd (trace1' commands angle ((0,0), 90))
   where
     trace1' ( '[' : commands) angle state
       = trace1' commands angle state
