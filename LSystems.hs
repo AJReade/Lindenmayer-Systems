@@ -100,7 +100,7 @@ trace1 commands angle colour
     trace1' (command : commands) angle state
       | command == 'F'                   = (line : trace, commands')
       | command == 'L' || command == 'R' = (trace, commands')
-      | command == 'F'                   = ([], commands)
+      | command == ']'                   = ([], commands)
       where
         endState@(endPos, endAngle)  = move command angle state
         (trace, commands') = trace1' commands angle endState
