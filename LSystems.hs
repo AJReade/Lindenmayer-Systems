@@ -127,7 +127,7 @@ trace2 commands angle colour
         (startPos, _startAngle)       = state
     trace2' (']' : commands) state (top : rest)
       = trace2' commands top rest
-    trace2' _ _ _ _ _
+    trace2' _ _ _
       = []
 
 ----------------------------------------------------------
