@@ -90,18 +90,17 @@ move  _ _ _ = error "Move Invalid"
 
 trace1 :: Commands -> Angle -> Colour -> [ColouredLine]
 trace1 commands angle colour
-  = fst (trace1' commands angle ((0,0), 90))
+  = fst (trace1' commands angle origin)
   where
     trace1' ( '[' : commands) angle state
       = (trace ++ trace', commands'')
       where
-        (trace, commands') = trace1' commands angle state
+        (trace, commands')  = trace1' commands angle state
         (trace', commands'') = trace1' commands' angle state
-    trace1' ( ']' : commands) angle state
-      = ([], commands)
     trace1' (command : commands) angle state
       | command == 'F'                   = (line : trace, commands')
       | command == 'L' || command == 'R' = (trace, commands')
+      | command == 'F'                   = ([], commands)
       where
         endState@(endPos, endAngle)  = move command angle state
         (trace, commands') = trace1' commands angle endState
@@ -113,7 +112,7 @@ trace1 commands angle colour
 
 trace2 :: Commands -> Angle -> Colour -> [ColouredLine]
 trace2 commands angle colour
-  = trace2' commands angle colour ((0,0), 90) []
+  = trace2' commands angle colour origin []
   where
     trace2' (command : commands) angle colour state stack
       | command == 'F' = (startPos, endPos, colour) : trace2' commands angle colour endState stack
@@ -241,3 +240,6 @@ commandMap
      ('+', "L"),
      ('-', "R")
     ]
+
+origin :: TurtleState
+origin = ((0,0), 90)
