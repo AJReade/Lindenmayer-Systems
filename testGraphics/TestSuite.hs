@@ -84,3 +84,4 @@ instance Show ([a] -> Int) => Reformat ([a] -> Int) where
 
 instance Show (Int -> Int) => Reformat (Int -> Int) where
   reformat = show
+
